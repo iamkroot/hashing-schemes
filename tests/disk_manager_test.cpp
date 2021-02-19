@@ -1,34 +1,11 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 
+#include "common.hpp"
 #include "doctest.h"
-#include <filesystem>
 
 #define private public
 
 #include "DiskManager.hpp"
-
-
-class DiskManagerFixture {
-private:
-
-    static std::string get_temp_db_path() {
-        auto path = std::filesystem::temp_directory_path();
-        path /= "temp.db";
-        return path;
-    }
-
-protected:
-    const std::string path = get_temp_db_path();
-    DiskManager dm;
-
-    DiskManagerFixture() : dm(DiskManager(path)) {}
-
-public:
-    virtual ~DiskManagerFixture() {
-        std::filesystem::remove(path);
-    }
-
-};
 
 TEST_SUITE("DiskManager") {
     TEST_CASE_FIXTURE(DiskManagerFixture, "Create/open file") {

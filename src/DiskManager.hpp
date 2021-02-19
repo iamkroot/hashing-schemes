@@ -52,19 +52,23 @@ public:
         const auto offset = page_id * page_size;
         db_file.seekg(offset);
         db_file.read(page_data, page_size);
-        if (db_file.bad()) {
+        if (db_file.fail()) {
             throw std::runtime_error("Bad read");
         }
     }
 
     void write_page(IdT page_id, const char* page_data) {
         const auto offset = page_id * page_size;
+        db_file.clear();
         db_file.seekp(offset);
-        if (db_file.bad()) {
+        if (db_file.fail()) {
             throw std::runtime_error("Unable to seek");
         }
         db_file.write(page_data, page_size);
         db_file.flush();
+        if (db_file.fail()) {
+            throw std::runtime_error("Unable to seek");
+        }
     }
 };
 
