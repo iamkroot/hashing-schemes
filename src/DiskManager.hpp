@@ -16,7 +16,7 @@ private:
     std::unordered_set<IdT> unused_pages;
 
 public:
-    explicit DiskManager(const std::string &file_name, uint32_t pageSize = 1 << 16, IdT lastUsedPage = -1,
+    explicit DiskManager(const std::string &file_name, uint32_t pageSize = PAGE_SIZE, IdT lastUsedPage = -1,
                          std::unordered_set<IdT> unusedPages = {})
             : file_name(file_name), page_size(pageSize), last_used_page(lastUsedPage),
               unused_pages(std::move(unusedPages)) {
