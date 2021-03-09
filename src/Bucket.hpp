@@ -53,10 +53,25 @@ public:
     }
 
     bool is_full() {
-        return false;
+      char page_data[PAGE_SIZE];
+      dm->read_page(page_id, page_data);
+      std::istringstream ss(std::stringstream::in | std::stringstream::binary);
+      char* end;
+      uint64_t size = strtoull(page_data, &end, 10);
+      if(size==PAGE_SIZE)
+      return true;
+      return false;
     }
 
     bool is_empty() {
+      char page_data[PAGE_SIZE];
+      dm->read_page(page_id, page_data);
+      std::istringstream ss(std::stringstream::in | std::stringstream::binary);
+      char* end;
+      uint64_t size = strtoull(page_data, &end, 10);
+      if(size==0)
+      return true;
+
         return false;
     }
 
