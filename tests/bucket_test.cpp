@@ -19,5 +19,5 @@ TEST_SUITE("Bucket") {
         REQUIRE(!b.find(1, &v));
         REQUIRE(!b.isempty());
     }
-    
+
 }
