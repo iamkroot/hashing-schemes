@@ -1,0 +1,10 @@
+^C:\USERS\HK100\ONEDRIVE\DOCUMENTS\GITHUB\HASHING-SCHEMES\BUILD\_DEPS\CEREAL-SUBBUILD\CMAKEFILES\E3069A3DC9A6A9659D17698F2955F0EE\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/hk100/OneDrive/Documents/GitHub/hashing-schemes/build/_deps/cereal-subbuild -BC:/Users/hk100/OneDrive/Documents/GitHub/hashing-schemes/build/_deps/cereal-subbuild --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/hk100/OneDrive/Documents/GitHub/hashing-schemes/build/_deps/cereal-subbuild/cereal-populate.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

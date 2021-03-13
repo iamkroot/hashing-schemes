@@ -53,25 +53,24 @@ public:
     }
 
     bool is_full() {
-      char page_data[PAGE_SIZE];
-      dm->read_page(page_id, page_data);
-      std::istringstream ss(std::stringstream::in | std::stringstream::binary);
-      char* end;
-      uint64_t size = strtoull(page_data, &end, 10);
-      if(size==PAGE_SIZE)
-      return true;
-      return false;
+        char page_data[PAGE_SIZE];
+        dm->read_page(page_id, page_data);
+        std::istringstream ss(std::stringstream::in | std::stringstream::binary);
+        char* end;
+        uint64_t size = strtoull(page_data, &end, 10);
+        if(size==PAGE_SIZE)
+        return true;
+        return false;
     }
 
     bool is_empty() {
-      char page_data[PAGE_SIZE];
-      dm->read_page(page_id, page_data);
-      std::istringstream ss(std::stringstream::in | std::stringstream::binary);
-      char* end;
-      uint64_t size = strtoull(page_data, &end, 10);
-      if(size==0)
-      return true;
-
+        char page_data[PAGE_SIZE];
+        dm->read_page(page_id, page_data);
+        std::istringstream ss(std::stringstream::in | std::stringstream::binary);
+        char* end;
+        uint64_t size = strtoull(page_data, &end, 10);
+        if(size==0)
+        return true;
         return false;
     }
 
@@ -86,12 +85,14 @@ private:
         std::istringstream ss(std::stringstream::in | std::stringstream::binary);
         char* end;
         uint64_t size = strtoull(page_data, &end, 10);
-        char dd[size];
+        //char dd[size];
+        char* dd = new char[size];
         memcpy(dd, end + 1, size);
         ss.rdbuf()->pubsetbuf(dd, size);
         cereal::BinaryInputArchive archive(ss);
         std::unordered_map<K, V> map;
         archive(map);
+        delete [] dd;
         return map;
     }
 

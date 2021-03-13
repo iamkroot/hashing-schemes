@@ -17,7 +17,7 @@ TEST_SUITE("Bucket") {
         b.remove(1);
         int v;
         REQUIRE(!b.find(1, &v));
-        REQUIRE(!b.isempty());
+        REQUIRE(!b.is_empty());
     }
 
 }

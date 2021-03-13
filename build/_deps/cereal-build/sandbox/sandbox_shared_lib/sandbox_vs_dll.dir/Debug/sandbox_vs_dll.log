@@ -1,0 +1,9 @@
+﻿  Building Custom Rule C:/Users/hk100/OneDrive/Documents/GitHub/hashing-schemes/external/cereal/sandbox/sandbox_shared_lib/CMakeLists.txt
+cl : command line warning D9002: ignoring unknown option '-fsanitize=leak'
+cl : command line warning D9002: ignoring unknown option '-fsanitize=undefined'
+  base.cpp
+  derived.cpp
+  Generating Code...
+LINK : warning LNK4300: ignoring '/INCREMENTAL' because input module contains ASAN metadata
+     Creating library C:/Users/hk100/OneDrive/Documents/GitHub/hashing-schemes/build/_deps/cereal-build/sandbox/sandbox_shared_lib/Debug/sandbox_vs_dll.lib and object C:/Users/hk100/OneDrive/Documents/GitHub/hashing-schemes/build/_deps/cereal-build/sandbox/sandbox_shared_lib/Debug/sandbox_vs_dll.exp
+  sandbox_vs_dll.vcxproj -> C:\Users\hk100\OneDrive\Documents\GitHub\hashing-schemes\build\_deps\cereal-build\sandbox\sandbox_shared_lib\Debug\sandbox_vs_dll.dll

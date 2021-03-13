@@ -1,0 +1,10 @@
+^C:\USERS\HK100\ONEDRIVE\DOCUMENTS\GITHUB\HASHING-SCHEMES\BUILD\_DEPS\CEREAL-SUBBUILD\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/hk100/OneDrive/Documents/GitHub/hashing-schemes/build/_deps/cereal-subbuild -BC:/Users/hk100/OneDrive/Documents/GitHub/hashing-schemes/build/_deps/cereal-subbuild --check-stamp-file C:/Users/hk100/OneDrive/Documents/GitHub/hashing-schemes/build/_deps/cereal-subbuild/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

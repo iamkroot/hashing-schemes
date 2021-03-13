@@ -1,6 +1,6 @@
 #ifndef DISKMANAGER_HPP
 #define DISKMANAGER_HPP
-
+#define private public
 #include <fstream>
 #include <string>
 #include <unordered_set>

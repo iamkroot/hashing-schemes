@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="C:\Users\hk100\OneDrive\Documents\GitHub\hashing-schemes\src\common.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\hk100\OneDrive\Documents\GitHub\hashing-schemes\src\DiskManager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\hk100\OneDrive\Documents\GitHub\hashing-schemes\src\Record.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\hk100\OneDrive\Documents\GitHub\hashing-schemes\src\Bucket.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\hk100\OneDrive\Documents\GitHub\hashing-schemes\src\HashingScheme.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\hk100\OneDrive\Documents\GitHub\hashing-schemes\src\StaticHashing.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\hk100\OneDrive\Documents\GitHub\hashing-schemes\src\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{E1E589B0-9F45-366D-A84A-E0199BDF6457}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

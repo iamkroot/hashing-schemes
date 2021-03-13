@@ -7,7 +7,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address -fsanitize=leak -fsan
 
 FetchContent_Declare(
         cereal
-        GIT_REPOSITORY git@github.com:USCiLab/cereal.git
+        GIT_REPOSITORY https://github.com/USCiLab/cereal.git
         GIT_TAG 64f50dbd5cecdaba785217e2b0aeea3a4f1cdfab
         SOURCE_DIR ${PROJECT_SOURCE_DIR}/external/cereal
         CMAKE_ARGS -Wno-dev -DSKIP_PORTABILITY_TEST=ON -DSKIP_PERFORMANCE_COMPARISON=ON -DBUILD_TESTS=OFF

@@ -1,0 +1,162 @@
+^C:\USERS\HK100\ONEDRIVE\DOCUMENTS\GITHUB\HASHING-SCHEMES\BUILD\_DEPS\CEREAL-SUBBUILD\CMAKEFILES\83AF6207617BA2ACCC01F17CCB7691B4\CEREAL-POPULATE-MKDIR.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/hk100/OneDrive/Documents/GitHub/hashing-schemes/external/cereal
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/hk100/OneDrive/Documents/GitHub/hashing-schemes/build/_deps/cereal-build
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/hk100/OneDrive/Documents/GitHub/hashing-schemes/build/_deps/cereal-subbuild/cereal-populate-prefix
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/hk100/OneDrive/Documents/GitHub/hashing-schemes/build/_deps/cereal-subbuild/cereal-populate-prefix/tmp
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/hk100/OneDrive/Documents/GitHub/hashing-schemes/build/_deps/cereal-subbuild/cereal-populate-prefix/src/cereal-populate-stamp/Debug
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/hk100/OneDrive/Documents/GitHub/hashing-schemes/build/_deps/cereal-subbuild/cereal-populate-prefix/src
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/hk100/OneDrive/Documents/GitHub/hashing-schemes/build/_deps/cereal-subbuild/cereal-populate-prefix/src/cereal-populate-stamp
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/hk100/OneDrive/Documents/GitHub/hashing-schemes/build/_deps/cereal-subbuild/cereal-populate-prefix/src/cereal-populate-stamp/Debug/cereal-populate-mkdir
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\HK100\ONEDRIVE\DOCUMENTS\GITHUB\HASHING-SCHEMES\BUILD\_DEPS\CEREAL-SUBBUILD\CMAKEFILES\83AF6207617BA2ACCC01F17CCB7691B4\CEREAL-POPULATE-DOWNLOAD.RULE
+setlocal
+cd C:\Users\hk100\OneDrive\Documents\GitHub\hashing-schemes\external
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -P C:/Users/hk100/OneDrive/Documents/GitHub/hashing-schemes/build/_deps/cereal-subbuild/cereal-populate-prefix/tmp/cereal-populate-gitclone.cmake
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/hk100/OneDrive/Documents/GitHub/hashing-schemes/build/_deps/cereal-subbuild/cereal-populate-prefix/src/cereal-populate-stamp/Debug/cereal-populate-download
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\HK100\ONEDRIVE\DOCUMENTS\GITHUB\HASHING-SCHEMES\BUILD\_DEPS\CEREAL-SUBBUILD\CMAKEFILES\83AF6207617BA2ACCC01F17CCB7691B4\CEREAL-POPULATE-UPDATE.RULE
+setlocal
+cd C:\Users\hk100\OneDrive\Documents\GitHub\hashing-schemes\external\cereal
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -P C:/Users/hk100/OneDrive/Documents/GitHub/hashing-schemes/build/_deps/cereal-subbuild/cereal-populate-prefix/tmp/cereal-populate-gitupdate.cmake
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\HK100\ONEDRIVE\DOCUMENTS\GITHUB\HASHING-SCHEMES\BUILD\_DEPS\CEREAL-SUBBUILD\CMAKEFILES\83AF6207617BA2ACCC01F17CCB7691B4\CEREAL-POPULATE-PATCH.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/hk100/OneDrive/Documents/GitHub/hashing-schemes/build/_deps/cereal-subbuild/cereal-populate-prefix/src/cereal-populate-stamp/Debug/cereal-populate-patch
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\HK100\ONEDRIVE\DOCUMENTS\GITHUB\HASHING-SCHEMES\BUILD\_DEPS\CEREAL-SUBBUILD\CMAKEFILES\83AF6207617BA2ACCC01F17CCB7691B4\CEREAL-POPULATE-CONFIGURE.RULE
+setlocal
+cd C:\Users\hk100\OneDrive\Documents\GitHub\hashing-schemes\build\_deps\cereal-build
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/hk100/OneDrive/Documents/GitHub/hashing-schemes/build/_deps/cereal-subbuild/cereal-populate-prefix/src/cereal-populate-stamp/Debug/cereal-populate-configure
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\HK100\ONEDRIVE\DOCUMENTS\GITHUB\HASHING-SCHEMES\BUILD\_DEPS\CEREAL-SUBBUILD\CMAKEFILES\83AF6207617BA2ACCC01F17CCB7691B4\CEREAL-POPULATE-BUILD.RULE
+setlocal
+cd C:\Users\hk100\OneDrive\Documents\GitHub\hashing-schemes\build\_deps\cereal-build
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/hk100/OneDrive/Documents/GitHub/hashing-schemes/build/_deps/cereal-subbuild/cereal-populate-prefix/src/cereal-populate-stamp/Debug/cereal-populate-build
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\HK100\ONEDRIVE\DOCUMENTS\GITHUB\HASHING-SCHEMES\BUILD\_DEPS\CEREAL-SUBBUILD\CMAKEFILES\83AF6207617BA2ACCC01F17CCB7691B4\CEREAL-POPULATE-INSTALL.RULE
+setlocal
+cd C:\Users\hk100\OneDrive\Documents\GitHub\hashing-schemes\build\_deps\cereal-build
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/hk100/OneDrive/Documents/GitHub/hashing-schemes/build/_deps/cereal-subbuild/cereal-populate-prefix/src/cereal-populate-stamp/Debug/cereal-populate-install
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\HK100\ONEDRIVE\DOCUMENTS\GITHUB\HASHING-SCHEMES\BUILD\_DEPS\CEREAL-SUBBUILD\CMAKEFILES\83AF6207617BA2ACCC01F17CCB7691B4\CEREAL-POPULATE-TEST.RULE
+setlocal
+cd C:\Users\hk100\OneDrive\Documents\GitHub\hashing-schemes\build\_deps\cereal-build
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/hk100/OneDrive/Documents/GitHub/hashing-schemes/build/_deps/cereal-subbuild/cereal-populate-prefix/src/cereal-populate-stamp/Debug/cereal-populate-test
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\HK100\ONEDRIVE\DOCUMENTS\GITHUB\HASHING-SCHEMES\BUILD\_DEPS\CEREAL-SUBBUILD\CMAKEFILES\1D376C9B7C077973A61624FFC23A1BA9\CEREAL-POPULATE-COMPLETE.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/hk100/OneDrive/Documents/GitHub/hashing-schemes/build/_deps/cereal-subbuild/CMakeFiles/Debug
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/hk100/OneDrive/Documents/GitHub/hashing-schemes/build/_deps/cereal-subbuild/CMakeFiles/Debug/cereal-populate-complete
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/hk100/OneDrive/Documents/GitHub/hashing-schemes/build/_deps/cereal-subbuild/cereal-populate-prefix/src/cereal-populate-stamp/Debug/cereal-populate-done
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\HK100\ONEDRIVE\DOCUMENTS\GITHUB\HASHING-SCHEMES\BUILD\_DEPS\CEREAL-SUBBUILD\CMAKEFILES\E3069A3DC9A6A9659D17698F2955F0EE\CEREAL-POPULATE.RULE
+setlocal
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\HK100\ONEDRIVE\DOCUMENTS\GITHUB\HASHING-SCHEMES\BUILD\_DEPS\CEREAL-SUBBUILD\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/hk100/OneDrive/Documents/GitHub/hashing-schemes/build/_deps/cereal-subbuild -BC:/Users/hk100/OneDrive/Documents/GitHub/hashing-schemes/build/_deps/cereal-subbuild --check-stamp-file C:/Users/hk100/OneDrive/Documents/GitHub/hashing-schemes/build/_deps/cereal-subbuild/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\hk100\OneDrive\Documents\GitHub\hashing-schemes\build\_deps\cereal-subbuild\CMakeFiles\e3069a3dc9a6a9659d17698f2955f0ee\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{C3AFDAE5-BB0E-3417-AD26-9721717E027C}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

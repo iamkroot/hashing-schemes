@@ -1,0 +1,10 @@
+^C:\USERS\HK100\ONEDRIVE\DOCUMENTS\GITHUB\HASHING-SCHEMES\BUILD\CMAKEFILES\071CB2B12DAE34238F3DB62FF313F0B7\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/hk100/OneDrive/Documents/GitHub/hashing-schemes -BC:/Users/hk100/OneDrive/Documents/GitHub/hashing-schemes/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/hk100/OneDrive/Documents/GitHub/hashing-schemes/build/Hashing.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

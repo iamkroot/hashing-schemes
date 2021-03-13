@@ -1,0 +1,7 @@
+﻿  Building Custom Rule C:/Users/hk100/OneDrive/Documents/GitHub/hashing-schemes/tests/CMakeLists.txt
+cl : command line warning D9002: ignoring unknown option '-fsanitize=leak'
+cl : command line warning D9002: ignoring unknown option '-fsanitize=undefined'
+  disk_manager_test.cpp
+  bucket_test.cpp
+  Generating Code...
+LINK : fatal error LNK1104: cannot open file '..\src\Debug\hashing.lib'
