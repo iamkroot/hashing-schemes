@@ -34,6 +34,11 @@ public:
         return false;
     }
 
+    bool contains(const K &key) {
+        std::unordered_map<K, V> map = read_page();
+        return map.contains(key);
+    }
+
     bool insert(const K &key, const V &value) {
         std::unordered_map<K, V> map = read_page();
         if (map.contains(key))

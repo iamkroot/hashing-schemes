@@ -1,7 +1,11 @@
 #ifndef COMMON_HPP
 #define COMMON_HPP
+
 #include <filesystem>
 
+#define private public
+
+#include "DiskManager.hpp"
 
 class DiskManagerFixture {
 private:
