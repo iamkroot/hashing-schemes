@@ -7,6 +7,8 @@
 
 #include "DiskManager.hpp"
 
+#undef private
+
 class DiskManagerFixture {
 private:
 

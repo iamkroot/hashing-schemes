@@ -7,6 +7,8 @@
 
 #include "DiskManager.hpp"
 
+#undef private
+
 TEST_SUITE("DiskManager") {
     TEST_CASE_FIXTURE(DiskManagerFixture, "Create/open file") {
         REQUIRE(dm.db_file.is_open());
