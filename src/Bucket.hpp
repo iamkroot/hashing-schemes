@@ -58,11 +58,31 @@ public:
     }
 
     bool is_full() {
-        return false;
+        int peek_size = 16;  // number of bytes to peek
+        char* data;
+        size_t size;  // bytes taken by the serialized form of map (actual data size)
+        size_t size_len;  // number of bytes used by 'size' variable serialization itself
+        char next_char;  // the character immediately to the right of the last digit of 'size'
+        do {
+            data = new char[peek_size];
+            char* end = nullptr;  // points to the character just after the 'size'
+            dm->peek_page(page_id, peek_size, data);
+            size = strtoull(data, &end, 10);
+            next_char = *end;
+            peek_size *= 2;
+            size_len = end - data;
+            delete[] data;
+            // according to format, the size is followed by a space. In case we didn't hit a space, this means the number of
+            // bytes taken up by 'size' itself, is more than what we peeked. So we retry after doubling the peek_size
+        } while (next_char != ' ');
+        // end points to the end of the size variable
+        const uint8_t extra = sizeof(K) + sizeof(V); // space used by one entry in the bucket
+        return size_len + size + extra >= PAGE_SIZE;
     }
 
     bool is_empty() {
-        return false;
+        const auto map = read_page();
+        return map.empty();
     }
 
     void clear() {

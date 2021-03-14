@@ -4,6 +4,6 @@
 #include <cstdint>
 
 using IdT = uint64_t;
-const uint32_t PAGE_SIZE = 1 << 16;
+const uint32_t PAGE_SIZE = 1 << 10;
 
 #endif //COMMON_H
