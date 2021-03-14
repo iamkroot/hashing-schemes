@@ -64,6 +64,11 @@ public:
     }
 
     bool remove(const K &key) override {
+        auto &buckets = get_bucket_chain(key);
+        for (auto &bucket: buckets) {
+            if (bucket.remove(key))
+                return true;
+        }
         return false;
     }
 };
