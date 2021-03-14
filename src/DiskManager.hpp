@@ -48,10 +48,28 @@ public:
         }
     }
 
+    /**
+     * @brief Read one page of data
+     * @param page_id The page to be read
+     * @param page_data Output buffer
+     */
     void read_page(IdT page_id, char* page_data) {
+        peek_page(page_id, page_size, page_data);
+    }
+
+    /**
+     * @brief Read only n bytes from page
+     * @param page_id The page to be read
+     * @param n Number of bytes, should be <= page_size
+     * @param data Output buffer
+     */
+    void peek_page(IdT page_id, size_t n, char* data) {
+        if (n > page_size) {
+            return;
+        }
         const auto offset = page_id * page_size;
         db_file.seekg(offset);
-        db_file.read(page_data, page_size);
+        db_file.read(data, n);
         if (db_file.fail()) {
             throw std::runtime_error("Bad read");
         }
