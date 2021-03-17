@@ -16,6 +16,10 @@ private:
     std::unordered_set<IdT> unused_pages;
 
 public:
+    uint64_t num_reads{};
+    uint64_t num_peeks{};
+    uint64_t num_writes{};
+
     explicit DiskManager(const std::string &file_name, uint32_t pageSize = PAGE_SIZE, IdT lastUsedPage = -1,
                          std::unordered_set<IdT> unusedPages = {})
             : file_name(file_name), page_size(pageSize), last_used_page(lastUsedPage),
@@ -54,6 +58,7 @@ public:
      * @param page_data Output buffer
      */
     void read_page(IdT page_id, char* page_data) {
+        ++num_reads;
         peek_page(page_id, page_size, page_data);
     }
 
@@ -64,6 +69,7 @@ public:
      * @param data Output buffer
      */
     void peek_page(IdT page_id, size_t n, char* data) {
+        ++num_peeks;
         if (n > page_size) {
             return;
         }
@@ -76,6 +82,7 @@ public:
     }
 
     void write_page(IdT page_id, const char* page_data) {
+        ++num_writes;
         const auto offset = page_id * page_size;
         db_file.clear();
         db_file.seekp(offset);
@@ -87,6 +94,10 @@ public:
         if (db_file.fail()) {
             throw std::runtime_error("Unable to seek");
         }
+    }
+
+    void reset_stats() {
+        num_reads = num_peeks = num_writes = 0;
     }
 };
 
