@@ -9,6 +9,8 @@ public:
     virtual bool get(const K &key, V* value) = 0;
 
     virtual bool remove(const K &key) = 0;
+
+    virtual ~HashingScheme() {};
 };
 
 

@@ -11,7 +11,7 @@
  * @brief Represents the naive file organization scheme, where every new entry is inserted at the end
  */
 template<typename K, typename V>
-class NaiveScheme : HashingScheme<K, V> {
+class NaiveScheme : public HashingScheme<K, V> {
     DiskManager* dm;
     std::list<Bucket<K, V>> buckets;
 public:

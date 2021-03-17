@@ -10,7 +10,7 @@
 #include "HashingScheme.hpp"
 
 template<typename K, typename V>
-class StaticHashing : HashingScheme<K, V> {
+class StaticHashing : public HashingScheme<K, V> {
     using HashFn = std::function<uint64_t(K)>;  // hash function type
 private:
     uint64_t num_slots;
