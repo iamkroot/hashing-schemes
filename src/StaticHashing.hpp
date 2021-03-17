@@ -65,9 +65,15 @@ public:
 
     bool remove(const K &key) override {
         auto &buckets = get_bucket_chain(key);
-        for (auto &bucket: buckets) {
-            if (bucket.remove(key))
+        for (auto iter = buckets.begin(); iter != buckets.end(); ++iter) {
+            auto &bucket = *iter;
+            if (bucket.remove(key)) {
+                if (bucket.is_empty()) {
+                    dm->remove_page(bucket.page_id);
+                    buckets.erase(iter);
+                }
                 return true;
+            }
         }
         return false;
     }
