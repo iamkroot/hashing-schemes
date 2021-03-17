@@ -28,8 +28,8 @@ TEST_SUITE("StaticHashing") {
         }
     }
 
-    constexpr int num_entries = 5000;
-    constexpr int num_lookups = 10000;
+    constexpr int num_entries = 50000;
+    constexpr int num_lookups = 100000;
 
     auto gen_lookups() noexcept {
         std::array<int, num_lookups> nums = {};
@@ -41,60 +41,40 @@ TEST_SUITE("StaticHashing") {
 
     std::array<int, num_lookups> lookups = gen_lookups();
 
-    TEST_CASE_FIXTURE(DiskManagerFixture, "NaiveTime") {
-        NaiveScheme<int, int> naive(&dm);
-        SUBCASE("Insertion") {
-            Stopwatch sw;
-            for (int i = 0; i < num_entries; ++i) {
-                naive.insert(i, i);
-            }
-            auto insertion_time = sw.stop();
-            MESSAGE("Naive Insertion Time: ", insertion_time, "us");
-            MESSAGE("Pages Used: ", dm.last_used_page);
+    TEST_CASE_FIXTURE(DiskManagerFixture, "Perf") {
+        HashingScheme<int, int>* scheme;  // base class, will be assigned to from each subcase
+        SUBCASE("Naive") {
+            scheme = new NaiveScheme<int, int>(&dm);
         }
-
-        SUBCASE("Lookup") {
-            for (int i = 0; i < num_entries; ++i) {
-                naive.insert(i, i);
+        SUBCASE("Static") {
+            for (uint64_t num_slots: {5, 10, 20, 50, 100, 200, 500, 1000}) {
+                SUBCASE((std::to_string(num_slots) + " slots").c_str()) {
+                    scheme = new StaticHashing<int, int>{num_slots, &dm};
+                }
             }
-            Stopwatch sw;
-            int v;
-            for (int &lookup : lookups) {
-                naive.get(lookup, &v);
-            }
-            auto lookup_time = sw.stop();
-            MESSAGE("Naive Lookup Time: ", lookup_time, "us");
         }
-    }
-
-    TEST_CASE_FIXTURE(DiskManagerFixture, "StaticTime") {
-        auto run_tests = [&](int num_slots) {
-            StaticHashing<int, int> static_scheme(num_slots, &dm);
-            SUBCASE(("Insertion " + std::to_string(num_slots)).c_str()) {
-                Stopwatch sw;
-                for (int i = 0; i < num_entries; ++i) {
-                    static_scheme.insert(i, i);
-                }
-                auto insertion_time = sw.stop();
-                MESSAGE("Static Insertion Time: ", insertion_time, "us");
-                MESSAGE("Pages Used: ", dm.last_used_page);
-            }
-            SUBCASE(("Lookup " + std::to_string(num_slots)).c_str()) {
-                for (int i = 0; i < num_entries; ++i) {
-                    static_scheme.insert(i, i);
-                }
-                Stopwatch sw;
-                int v;
-                for (int &lookup : lookups) {
-                    static_scheme.get(lookup, &v);
-                }
-                auto lookup_time = sw.stop();
-                MESSAGE("Static Lookup Time: ", lookup_time, "us");
-            }
-        };
-
-        for (auto num_slots: {5, 10, 20, 50, 100, 200, 500, 1000}) {
-            run_tests(num_slots);
+        dm.reset_stats();
+        Stopwatch sw;
+        for (int i = 0; i < num_entries; ++i) {
+            scheme->insert(i, i);
         }
+        auto insertion_time = sw.stop();
+        MESSAGE("Insertion Time: ", insertion_time, "us");
+        MESSAGE("Pages Used: ", dm.last_used_page + 1);
+        MESSAGE("DM Reads: ", dm.num_reads);
+        MESSAGE("DM Peeks: ", dm.num_peeks);
+        MESSAGE("DM Writes: ", dm.num_writes);
+        MESSAGE("DM Insertion Page Accesses: ", dm.num_reads + dm.num_writes);
+        dm.reset_stats();
+        int v;
+        for (int &lookup : lookups) {
+            scheme->get(lookup, &v);
+        }
+        auto lookup_time = sw.stop();
+        MESSAGE("Lookup Time: ", lookup_time, "us");
+        MESSAGE("DM Reads: ", dm.num_reads);
+        MESSAGE("DM Peeks: ", dm.num_peeks);
+        MESSAGE("DM Lookup Page Accesses: ", dm.num_reads);
+        delete scheme;
     }
 }
