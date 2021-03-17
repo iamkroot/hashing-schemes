@@ -1,5 +1,4 @@
-#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
-
+#include <cstring>
 #include "common.hpp"
 #include "doctest.h"
 
