@@ -15,7 +15,7 @@ private:
     static std::string get_temp_db_path() {
         auto path = std::filesystem::temp_directory_path();
         path /= "temp.db";
-        return path;
+        return path.string();
     }
 
 protected:
