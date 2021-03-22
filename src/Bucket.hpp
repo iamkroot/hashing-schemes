@@ -89,7 +89,6 @@ public:
         write_page({});
     }
 
-private:
     std::unordered_map<K, V> read_page() {
         char page_data[PAGE_SIZE];
         dm->read_page(page_id, page_data);
@@ -105,6 +104,7 @@ private:
         return map;
     }
 
+private:
     void write_page(std::unordered_map<K, V> &&map) {
         char page_data[PAGE_SIZE];
         std::ostringstream ss(std::stringstream::out | std::stringstream::binary);
