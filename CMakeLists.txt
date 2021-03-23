@@ -6,6 +6,16 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address -fsanitize=leak -fsanitize=undefined")
 
 FetchContent_Declare(
+        fmt
+        GIT_REPOSITORY git@github.com:fmtlib/fmt.git
+        GIT_TAG 7bdf0628b1276379886c7f6dda2cef2b3b374f0b
+        SOURCE_DIR ${PROJECT_SOURCE_DIR}/external/fmt
+)
+
+FetchContent_MakeAvailable(fmt)
+
+
+FetchContent_Declare(
         cereal
         GIT_REPOSITORY git@github.com:USCiLab/cereal.git
         GIT_TAG 64f50dbd5cecdaba785217e2b0aeea3a4f1cdfab
