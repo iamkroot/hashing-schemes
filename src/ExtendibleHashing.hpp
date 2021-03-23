@@ -2,6 +2,9 @@
 #define EXTENDIBLEHASHING_HPP
 
 #include "common.h"
+#include <bitset>
+#include <fmt/format.h>
+#include <fmt/ostream.h>
 #include <functional>
 #include "Bucket.hpp"
 #include "HashingScheme.hpp"
@@ -92,6 +95,56 @@ public:
 
     bool remove(const K &key) override {
         return false;
+    }
+
+    /**
+     * @brief Generate the dot notation graph for the current structure
+     * This can then be viewed using a GraphViz application.
+     * @param out Output stream
+     */
+    void display(std::ostream &out) {
+        using namespace fmt::literals;
+        const auto gen_dir_labels = [&]() {
+            const uint32_t max = (1 << global_depth) - 1;
+            for (int i = 0; i <= max; ++i) {
+                fmt::print(out, "<a{0}> {0:0{1}b}{2}", i, global_depth, (i == max ? "" : " | "));
+            }
+        };
+        const auto gen_bucket = [&](const std::shared_ptr<Bucket<K, V>> bucket) {
+            const auto gen_entry = [&](const auto &entry) {
+                auto &[k, v] = entry;
+                return fmt::format("{{{k}|{v}}}", "k"_a = k, "v"_a = v);
+            };
+            fmt::print(out, "bucket{} [label=\"", fmt::ptr(bucket));
+            const auto items = bucket->read_page();
+            std::stringstream entries;
+            for (auto iter = items.begin(); iter != items.end(); ++iter) {
+                fmt::print(out, "{}{}", gen_entry(*iter), (std::next(iter) == items.end() ? "" : "|"));
+            }
+            fmt::print(out, "\"];\n");
+        };
+        out << "digraph G {\n"
+            << "\trankdir=\"LR\";\n"
+            << "\tnode [shape = record]\n"
+            << "\tsubgraph directory {\n"
+            << "\t\tarray [label=\"";
+        gen_dir_labels();
+        out << "\"];" << std::endl
+            << "\t" << "}" << std::endl
+            << "\t" << "subgraph buckets {" << std::endl;
+        std::unordered_set<std::shared_ptr<Bucket<K, V>>> done;
+        for (auto &bucket:buckets) {
+            if (done.contains(bucket))
+                continue;
+            out << "\t\t";
+            gen_bucket(bucket);
+            done.insert(bucket);
+        }
+        out << "\t}" << std::endl;
+        for (int i = 0; i < buckets.size(); ++i) {
+            fmt::print(out, "\tarray:a{} -> bucket{};\n", i, fmt::ptr(buckets[i]));
+        }
+        out << "}" << std::endl;
     }
 };
 
