@@ -104,23 +104,19 @@ public:
      * @param out Output stream
      */
     void display(std::ostream &out) {
-        using namespace fmt::literals;
-        // helper func to generate directory element labels
-        const auto gen_dir_labels = [&]() {
-            const uint32_t max = (1 << global_depth) - 1;
-            for (int i = 0; i <= max; ++i) {
-                fmt::print(out, "<a{0}> {0:0{1}b}{2}", i, global_depth, (i == max ? "" : " | "));
-            }
-        };
-
-        out << "digraph G {\n"
-            << "\trankdir=\"LR\";\n"
-            << "\tnode [shape = record]\n";
+        out << "digraph G {\n"  // directed graph
+            << "\trankdir=\"LR\";\n"  // ensure buckets are vertical
+            << "\tnode [shape = record]\n";  // for array-like presentation of each bucket
 
         // generate the main directory
         out << "\tsubgraph directory {\n"
             << "\t\tarray [label=\"";
-        gen_dir_labels();
+        const uint32_t max = (1 << global_depth) - 1;
+        for (int i = 0; i <= max; ++i) {
+            // "a0" is a label for the first element of the directory, used later to draw edges
+            // `{0:0{1}b}` ensures that we print exactly `global_depth` number of bits, padded by 0s to the left
+            fmt::print(out, "<a{0}> {0:0{1}b}{2}", i, global_depth, (i == max ? "" : " | "));
+        }
         out << "\"];\n"
             << "\t}\n";
 
@@ -129,11 +125,12 @@ public:
         std::unordered_set<std::shared_ptr<Bucket<K, V>>> done;
         for (auto &bucket:buckets) {
             if (done.contains(bucket))
+                // generate each bucket exactly once
                 continue;
             const std::unordered_map<K, V> items = bucket->read_page();
             fmt::print(out, "\t\tbucket{} [label=\"{}\", xlabel=\"{}\"];\n",
-                       fmt::ptr(bucket),  // bucket ID
-                       fmt::join(std::views::keys(items), "|"),  // bucket keys
+                       fmt::ptr(bucket),  // bucket ID, used later to draw edges
+                       fmt::join(std::views::keys(items), "|"),  // bucket entries, only show keys
                        bucket->local_depth);
             done.insert(bucket);
         }
