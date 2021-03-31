@@ -29,12 +29,52 @@ class ExtendibleHashing : public HashingScheme<K, V> {
         return hash_fn(key) & ((1 << global_depth) - 1);
     }
 
+    uint32_t get_sibling_idx(const uint32_t bucket_idx, const uint32_t local_depth) {
+        // flip the 'local_depth' bit
+        return bucket_idx ^ (1 << (local_depth - 1));
+    }
+
     /**
      * Grow directory by doubling its size
      */
     void grow() {
         buckets.reserve(1 << ++global_depth);
         std::copy(buckets.begin(), buckets.end(), std::back_inserter(buckets));
+    }
+
+    /**
+     * Shrink directory by halving its size
+     * @return True if directory was shrunk
+     */
+    bool shrink() {
+        if (!global_depth)
+            return false;
+        for (auto &bucket:buckets) {
+            if (bucket->local_depth == global_depth)
+                // can't shrink
+                return false;
+        }
+        // simply truncate the second half of the vector
+        buckets.resize(1 << --global_depth);
+        return true;
+    }
+
+    /**
+     * @brief Determine if the given bucket can be merged with some other bucket
+     * For now this only happens if the bucket is fully empty.
+     * But we can have other merging policies, for example, if the total size of bucket and its sibling is less than
+     * the maximum, merge them.
+     */
+    bool can_combine(std::shared_ptr<Bucket<K, V>> bucket, uint32_t bucket_idx) {
+        if (!bucket->is_empty())
+            return false;
+        const uint32_t sibling_idx = get_sibling_idx(bucket_idx, bucket->local_depth);
+        auto sibling = buckets[sibling_idx];
+        if (sibling->local_depth != bucket->local_depth) {
+            // can't merge buckets with unequal depths
+            return false;
+        }
+        return true;
     }
 
 public:
@@ -94,8 +134,41 @@ public:
         return bucket->find(key, value);
     }
 
+    /**
+     * @brief Remove the key-value entry
+     * @return True if entry was found and removed
+     */
     bool remove(const K &key) override {
-        return false;
+        const uint32_t bucket_idx = get_bucket_idx(key);
+        auto bucket = buckets[bucket_idx];
+        if (!bucket->remove(key))
+            // not found
+            return false;
+
+        while (global_depth > 0 && can_combine(bucket, bucket_idx)) {
+            auto sibling = buckets[get_sibling_idx(bucket_idx, bucket->local_depth)];
+            // move all remaining values from bucket into its sibling
+            // TODO: The merging policy should tell us whether to move from bucket to sibling or vice versa
+            // the merging policy should try to minimize these moves as much as possible
+            for (auto &[key, value]:bucket->read_page()) {
+                sibling->insert(key, value);
+            }
+            // replace all occurrences of bucket in the directory with its sibling, effectively deleting it
+            for (auto &buck:buckets) {
+                if (buck == bucket) {
+                    buck = sibling;
+                }
+            }
+            --sibling->local_depth;
+
+            // try to halve the directory
+            if (!shrink()) {
+                // couldn't shrink
+                break;
+            }
+            bucket = sibling;  // redo the process with the newly merged bucket
+        }
+        return true;
     }
 
     /**
