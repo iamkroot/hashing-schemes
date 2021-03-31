@@ -113,14 +113,6 @@ public:
             }
         };
 
-        // helper func to generate the bucket and its elements
-        const auto gen_bucket = [&](const std::shared_ptr<Bucket<K, V>> bucket) {
-            fmt::print(out, "bucket{} [label=\"", fmt::ptr(bucket));
-            const std::unordered_map<K, V> items = bucket->read_page();
-            fmt::print(out, "{}", fmt::join(std::views::keys(items), "|"));
-            fmt::print(out, "\"];\n");
-        };
-
         out << "digraph G {\n"
             << "\trankdir=\"LR\";\n"
             << "\tnode [shape = record]\n";
@@ -138,17 +130,20 @@ public:
         for (auto &bucket:buckets) {
             if (done.contains(bucket))
                 continue;
-            out << "\t\t";
-            gen_bucket(bucket);
+            const std::unordered_map<K, V> items = bucket->read_page();
+            fmt::print(out, "\t\tbucket{} [label=\"{}\", xlabel=\"{}\"];\n",
+                       fmt::ptr(bucket),  // bucket ID
+                       fmt::join(std::views::keys(items), "|"),  // bucket keys
+                       bucket->local_depth);
             done.insert(bucket);
         }
-        out << "\t}" << std::endl;
+        out << "\t}\n";
 
         // generate edges from directory to buckets
         for (int i = 0; i < buckets.size(); ++i) {
             fmt::print(out, "\tarray:a{} -> bucket{};\n", i, fmt::ptr(buckets[i]));
         }
-        out << "}" << std::endl;
+        out << "}\n";
     }
 };
 
