@@ -26,4 +26,14 @@ TEST_SUITE("ExtendibleHashing") {
             REQUIRE(v == i * 2);
         }
     }
+
+    TEST_CASE_FIXTURE(DiskManagerFixture, "Remove") {
+        ExtendibleHashing<int, int> eh(&dm);
+        eh.insert(3, 6);
+        auto v = eh.remove(3);
+        REQUIRE(v);
+        v = eh.remove(1);
+        REQUIRE_FALSE(v);
+    }
+
 }
