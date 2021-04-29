@@ -29,11 +29,15 @@ TEST_SUITE("ExtendibleHashing") {
 
     TEST_CASE_FIXTURE(DiskManagerFixture, "Remove") {
         ExtendibleHashing<int, int> eh(&dm);
-        eh.insert(3, 6);
-        auto v = eh.remove(3);
-        REQUIRE(v);
-        v = eh.remove(1);
-        REQUIRE_FALSE(v);
+        eh.insert(4, 6);
+        SUBCASE("Remove exists") {
+            bool ret = eh.remove(4);
+            REQUIRE(ret == true);
+        }
+        SUBCASE("Remove missing key") {
+            bool ret = eh.remove(2);
+            REQUIRE(ret == false);
+        }
     }
 
 }
