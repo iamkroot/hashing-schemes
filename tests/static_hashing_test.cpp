@@ -2,6 +2,7 @@
 #include "common.hpp"
 #include "NaiveScheme.hpp"
 #include "StaticHashing.hpp"
+#include "ExtendibleHashing.hpp"
 #include "Stopwatch.hpp"
 
 TEST_SUITE("StaticHashing") {
@@ -43,8 +44,10 @@ TEST_SUITE("StaticHashing") {
 
     TEST_CASE_FIXTURE(DiskManagerFixture, "Perf") {
         HashingScheme<int, int>* scheme;  // base class, will be assigned to from each subcase
-        SUBCASE("Naive") {
-            scheme = new NaiveScheme<int, int>(&dm);
+        if constexpr(num_lookups <= 10000) {  // don't test naive for cases with lots of lookups
+            SUBCASE("Naive") {
+                scheme = new NaiveScheme<int, int>(&dm);
+            }
         }
         SUBCASE("Static") {
             for (uint64_t num_slots: {5, 10, 20, 50, 100, 200, 500, 1000}) {
@@ -52,6 +55,9 @@ TEST_SUITE("StaticHashing") {
                     scheme = new StaticHashing<int, int>{num_slots, &dm};
                 }
             }
+        }
+        SUBCASE("Extendible") {
+            scheme = new ExtendibleHashing<int, int>{&dm};
         }
         dm.reset_stats();
         Stopwatch sw;
@@ -61,9 +67,9 @@ TEST_SUITE("StaticHashing") {
         auto insertion_time = sw.stop();
         MESSAGE("Insertion Time: ", insertion_time, "us");
         MESSAGE("Pages Used: ", dm.last_used_page + 1);
-        MESSAGE("DM Reads: ", dm.num_reads);
-        MESSAGE("DM Peeks: ", dm.num_peeks);
-        MESSAGE("DM Writes: ", dm.num_writes);
+        MESSAGE("DM Insertion Reads: ", dm.num_reads);
+        MESSAGE("DM Insertion Peeks: ", dm.num_peeks);
+        MESSAGE("DM Insertion Writes: ", dm.num_writes);
         MESSAGE("DM Insertion Page Accesses: ", dm.num_reads + dm.num_writes);
         dm.reset_stats();
         int v;
@@ -72,8 +78,8 @@ TEST_SUITE("StaticHashing") {
         }
         auto lookup_time = sw.stop();
         MESSAGE("Lookup Time: ", lookup_time, "us");
-        MESSAGE("DM Reads: ", dm.num_reads);
-        MESSAGE("DM Peeks: ", dm.num_peeks);
+        MESSAGE("DM Lookup Reads: ", dm.num_reads);
+        MESSAGE("DM Lookup Peeks: ", dm.num_peeks);
         MESSAGE("DM Lookup Page Accesses: ", dm.num_reads);
         delete scheme;
     }
