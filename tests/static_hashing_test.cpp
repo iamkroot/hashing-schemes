@@ -29,8 +29,21 @@ TEST_SUITE("StaticHashing") {
         }
     }
 
-    constexpr int num_entries = 50000;
-    constexpr int num_lookups = 100000;
+    TEST_CASE_FIXTURE(DiskManagerFixture, "Remove") {
+        StaticHashing<int, int> static_hash(10, &dm);
+        static_hash.insert(4, 2);
+        SUBCASE("Remove exists") {
+            bool ret = static_hash.remove(4);
+            REQUIRE(ret == true);
+        }
+        SUBCASE("Remove missing key") {
+            bool ret = static_hash.remove(2);
+            REQUIRE(ret == false);
+        }
+    }
+
+    constexpr int num_entries = 5000;
+    constexpr int num_lookups = 10000;
 
     auto gen_lookups() noexcept {
         std::array<int, num_lookups> nums = {};
